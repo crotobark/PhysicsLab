@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect } from 'react';
+import Header from './components/layout/Header';
+import MainLayout from './components/layout/MainLayout';
+import SimulationCanvas from './components/simulation/SimulationCanvas';
+import SimulationControls from './components/simulation/SimulationControls';
+import CodeEditor from './components/editor/CodeEditor';
+import TheoryPanel from './components/theory/TheoryPanel';
+import { useAppStore } from './store/useAppStore';
+
+// Import mission 1.1 (we'll create this next)
+import mission1_1 from './content/missions/mission1_1';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const setCurrentMission = useAppStore((state) => state.setCurrentMission);
+  const resetMission = useAppStore((state) => state.resetMission);
+
+  // Load mission 1.1 on mount
+  useEffect(() => {
+    setCurrentMission(mission1_1);
+  }, [setCurrentMission]);
+
+  const handleRun = () => {
+    // TODO: Execute Python code
+    console.log('Running code...');
+  };
+
+  const handlePause = () => {
+    // TODO: Pause simulation
+    console.log('Pausing simulation...');
+  };
+
+  const handleReset = () => {
+    resetMission();
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="h-screen w-screen flex flex-col overflow-hidden">
+      <Header />
+      <div className="flex-1 overflow-hidden">
+        <MainLayout
+          theory={<TheoryPanel />}
+          visualization={<SimulationCanvas />}
+          editor={<CodeEditor />}
+          controls={
+            <SimulationControls
+              onRun={handleRun}
+              onPause={handlePause}
+              onReset={handleReset}
+            />
+          }
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
