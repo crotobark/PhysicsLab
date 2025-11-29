@@ -1,73 +1,100 @@
-# React + TypeScript + Vite
+# 🚀 PhysicsCodeLab
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Интерактивная платформа для изучения Python, математики и физики**
 
-Currently, two official plugins are available:
+## ✨ Что это?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+PhysicsCodeLab объединяет три дисциплины в единый опыт, где каждая задача требует:
+- **Понимания физики** — что происходит и почему
+- **Знания математики** — как это описать формулами
+- **Навыков Python** — как это реализовать в коде
 
-## React Compiler
+## 🎯 Текущий статус: MVP
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### ✅ Работает:
+- **Monaco Editor** — полноценный редактор кода с подсветкой Python
+- **Pyodide 0.29.0** — Python 3.13 выполняется в браузере
+- **Библиотека physicslab** — встроенная Python библиотека с классами:
+  - `World` — физический мир
+  - `Ball` — шарики/частицы
+  - `Platform` — платформы
+- **Консоль вывода** — результаты выполнения Python кода
+- **Миссия 1.1 "Первый шаг"** — полностью функциональна
 
-## Expanding the ESLint configuration
+### 🚧 В разработке:
+- Canvas визуализация (HTML5)
+- Панель теории с формулами (KaTeX)
+- Дополнительные миссии
+- Система прогресса
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠 Технологический стек
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Frontend**: React 18 + TypeScript + Vite
+- **Styling**: Tailwind CSS v3
+- **Code Editor**: Monaco Editor (VS Code engine)
+- **Python Runtime**: Pyodide (WebAssembly)
+- **State Management**: Zustand
+- **Math Rendering**: KaTeX (ready to use)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🚀 Быстрый старт
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# Установка зависимостей
+npm install
+
+# Запуск dev сервера
+npm run dev
+
+# Сборка для продакшена
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Откройте http://localhost:5173
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📝 Структура проекта
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+physicslab/
+├── src/
+│   ├── components/      # React компоненты
+│   ├── hooks/           # Custom hooks (usePython)
+│   ├── lib/             # Pyodide loader
+│   ├── store/           # Zustand state
+│   ├── content/         # Миссии и контент
+│   └── types/           # TypeScript типы
+├── python/
+│   └── physicslab/      # Python библиотека
+└── public/              # Статические файлы
+```
+
+## 🎓 Пример использования
+
+```python
+from physicslab import *
+
+# Создаём мир
+world = World(gravity=9.81, width=800, height=600)
+
+# Создаём объекты
+robot = Ball(x=400, y=300, radius=20, color="blue")
+target = Ball(x=400, y=300, radius=30, color="green", fixed=True)
+
+# Добавляем в мир
+world.add(robot)
+world.add(target)
+
+# Запускаем симуляцию
+world.run()
+```
+
+## 📄 Лицензия
+
+MIT
+
+## 👨‍💻 Автор
+
+NeuroHand + Claude Code
+
+---
+
+**Статус**: 🟢 Активная разработка | **Версия**: 0.1.0 (MVP)
