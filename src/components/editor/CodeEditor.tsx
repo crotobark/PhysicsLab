@@ -6,7 +6,7 @@ export default function CodeEditor() {
   const code = useAppStore((state) => state.code);
   const setCode = useAppStore((state) => state.setCode);
   const isRunning = useAppStore((state) => state.isRunning);
-  const [loadError, setLoadError] = useState(false);
+  const [loadError] = useState(false);
 
   // Fallback to textarea if Monaco fails
   if (loadError) {
