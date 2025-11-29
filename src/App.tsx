@@ -2,6 +2,7 @@ import { useEffect, Suspense, lazy } from 'react';
 import Header from './components/layout/Header';
 import OutputConsole from './components/editor/OutputConsole';
 import SimulationCanvas from './components/simulation/SimulationCanvas';
+import MathCanvas from './components/math/MathCanvas';
 import { useAppStore } from './store/useAppStore';
 import { usePython } from './hooks/usePython';
 import mission1_1 from './content/missions/mission1_1';
@@ -12,10 +13,16 @@ const CodeEditor = lazy(() => import('./components/editor/CodeEditor'));
 function App() {
   const setCurrentMission = useAppStore((state) => state.setCurrentMission);
   const resetMission = useAppStore((state) => state.resetMission);
+  const currentMission = useAppStore((state) => state.currentMission);
   const code = useAppStore((state) => state.code);
   const isRunning = useAppStore((state) => state.isRunning);
+  const mathCanvasState = useAppStore((state) => state.mathCanvasState);
+  const pythonWorldState = useAppStore((state) => state.pythonWorldState);
 
   const { runCode, isLoading, isPyodideReady } = usePython();
+
+  // Determine if current mission is math-based
+  const isMathMission = currentMission?.module === 5 || currentMission?.module === 6;
 
   useEffect(() => {
     setCurrentMission(mission1_1);
@@ -35,9 +42,13 @@ function App() {
 
       {/* Main Content */}
       <div className="flex-1 flex overflow-hidden">
-        {/* Visualization */}
+        {/* Visualization - Switch between Physics and Math */}
         <div className="flex-1 border-r border-gray-700">
-          <SimulationCanvas />
+          {isMathMission || mathCanvasState ? (
+            <MathCanvas />
+          ) : (
+            <SimulationCanvas />
+          )}
         </div>
 
         {/* Code Area */}
