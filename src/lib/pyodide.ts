@@ -20,6 +20,7 @@ __all__ = ['World', 'Ball', 'Platform', 'random']
   'world.py': `"""
 World - Physics world container
 """
+import json
 
 class World:
     """Physics world that contains all bodies and runs the simulation"""
@@ -41,11 +42,53 @@ class World:
         if body in self.bodies:
             self.bodies.remove(body)
 
+    def get_state(self):
+        """Return JSON-serializable world state for visualization"""
+        state = {
+            "width": self.width,
+            "height": self.height,
+            "gravity": self.gravity,
+            "boundaries": self.boundaries,
+            "bodies": []
+        }
+
+        for body in self.bodies:
+            body_data = {
+                "type": body.__class__.__name__,
+                "x": body.x,
+                "y": body.y
+            }
+
+            if hasattr(body, 'radius'):
+                body_data["radius"] = body.radius
+            if hasattr(body, 'color'):
+                body_data["color"] = body.color
+            if hasattr(body, 'width'):
+                body_data["width"] = body.width
+            if hasattr(body, 'height'):
+                body_data["height"] = body.height
+            if hasattr(body, 'vx'):
+                body_data["vx"] = body.vx
+            if hasattr(body, 'vy'):
+                body_data["vy"] = body.vy
+            if hasattr(body, 'fixed'):
+                body_data["fixed"] = body.fixed
+
+            state["bodies"].append(body_data)
+
+        return state
+
     def run(self):
         print("Simulation started!")
         print(f"Total bodies: {len(self.bodies)}")
         for i, body in enumerate(self.bodies):
             print(f"  Body {i+1}: {body}")
+
+        # Output world state as JSON for visualization
+        state = self.get_state()
+        print("__WORLD_STATE__")
+        print(json.dumps(state))
+        print("__END_WORLD_STATE__")
 
     def run_for(self, seconds):
         print(f"Running simulation for {seconds} seconds...")

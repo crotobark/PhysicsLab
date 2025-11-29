@@ -90,6 +90,25 @@ export interface PythonOutput {
   timestamp: number;
 }
 
+export interface PythonWorldState {
+  width: number;
+  height: number;
+  gravity: number;
+  boundaries: boolean;
+  bodies: Array<{
+    type: string;
+    x: number;
+    y: number;
+    radius?: number;
+    color?: string;
+    width?: number;
+    height?: number;
+    vx?: number;
+    vy?: number;
+    fixed?: boolean;
+  }>;
+}
+
 export interface PythonExecutionResult {
   success: boolean;
   output: PythonOutput[];

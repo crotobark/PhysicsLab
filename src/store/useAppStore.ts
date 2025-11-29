@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { Mission, WorldState, PythonOutput } from '../types';
+import type { Mission, WorldState, PythonOutput, PythonWorldState } from '../types';
 
 interface AppState {
   // Mission state
@@ -19,6 +19,10 @@ interface AppState {
   // World state
   worldState: WorldState | null;
   setWorldState: (state: WorldState | null) => void;
+
+  // Python world state (from Python execution)
+  pythonWorldState: PythonWorldState | null;
+  setPythonWorldState: (state: PythonWorldState | null) => void;
 
   // UI state
   theoryPanelOpen: boolean;
@@ -47,6 +51,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   isRunning: false,
   isPaused: false,
   worldState: null,
+  pythonWorldState: null,
   theoryPanelOpen: false,
   consoleOutput: [],
   showHints: false,
@@ -67,6 +72,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   setIsRunning: (running) => set({ isRunning: running }),
   setIsPaused: (paused) => set({ isPaused: paused }),
   setWorldState: (state) => set({ worldState: state }),
+  setPythonWorldState: (state) => set({ pythonWorldState: state }),
   setTheoryPanelOpen: (open) => set({ theoryPanelOpen: open }),
 
   // Console
@@ -94,6 +100,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       isRunning: false,
       isPaused: false,
       worldState: null,
+      pythonWorldState: null,
       consoleOutput: [],
       currentHintLevel: 0,
       showHints: false,

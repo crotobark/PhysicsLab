@@ -1,6 +1,7 @@
 import { useEffect, Suspense, lazy } from 'react';
 import Header from './components/layout/Header';
 import OutputConsole from './components/editor/OutputConsole';
+import SimulationCanvas from './components/simulation/SimulationCanvas';
 import { useAppStore } from './store/useAppStore';
 import { usePython } from './hooks/usePython';
 import mission1_1 from './content/missions/mission1_1';
@@ -34,15 +35,9 @@ function App() {
 
       {/* Main Content */}
       <div className="flex-1 flex overflow-hidden">
-        {/* Visualization - Simple for now */}
-        <div className="flex-1 flex items-center justify-center border-r border-gray-700 bg-[#0d1117]">
-          <div className="text-center text-gray-400">
-            <div className="text-6xl mb-4">🚀</div>
-            <p className="text-lg">Визуализация</p>
-            <p className="text-sm mt-2 text-gray-500">
-              (Появится после запуска кода)
-            </p>
-          </div>
+        {/* Visualization */}
+        <div className="flex-1 border-r border-gray-700">
+          <SimulationCanvas />
         </div>
 
         {/* Code Area */}
