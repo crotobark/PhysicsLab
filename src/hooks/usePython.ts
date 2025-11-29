@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { runPythonCode, loadPyodide } from '../lib/pyodide';
 import { useAppStore } from '../store/useAppStore';
-import type { PythonWorldState } from '../types';
+import type { PythonWorldState, MathCanvasState } from '../types';
 
 export function usePython() {
   const [isLoading, setIsLoading] = useState(false);
@@ -11,6 +11,7 @@ export function usePython() {
   const addConsoleOutput = useAppStore((state) => state.addConsoleOutput);
   const clearConsoleOutput = useAppStore((state) => state.clearConsoleOutput);
   const setPythonWorldState = useAppStore((state) => state.setPythonWorldState);
+  const setMathCanvasState = useAppStore((state) => state.setMathCanvasState);
 
   // Initialize Pyodide
   const initialize = useCallback(async () => {
@@ -64,12 +65,35 @@ export function usePython() {
     }
   };
 
+  // Extract math canvas state from Python output
+  const extractMathCanvasState = (output: string): MathCanvasState | null => {
+    const startMarker = '__MATH_CANVAS_STATE__';
+    const endMarker = '__END_MATH_CANVAS_STATE__';
+
+    const startIndex = output.indexOf(startMarker);
+    const endIndex = output.indexOf(endMarker);
+
+    if (startIndex === -1 || endIndex === -1) {
+      return null;
+    }
+
+    const jsonStr = output.substring(startIndex + startMarker.length, endIndex).trim();
+
+    try {
+      return JSON.parse(jsonStr) as MathCanvasState;
+    } catch (e) {
+      console.error('Failed to parse math canvas state JSON:', e);
+      return null;
+    }
+  };
+
   // Run Python code
   const runCode = useCallback(
     async (code: string) => {
       setIsRunning(true);
       clearConsoleOutput();
       setPythonWorldState(null);
+      setMathCanvasState(null);
 
       addConsoleOutput({
         type: 'log',
@@ -87,22 +111,41 @@ export function usePython() {
         const result = await runPythonCode(code);
 
         if (result.success) {
-          // Extract world state from output
+          // Extract physics world state from output
           const worldState = extractWorldState(result.output);
           if (worldState) {
             setPythonWorldState(worldState);
           }
 
-          // Clean output by removing world state markers
+          // Extract math canvas state from output
+          const mathCanvasState = extractMathCanvasState(result.output);
+          if (mathCanvasState) {
+            setMathCanvasState(mathCanvasState);
+          }
+
+          // Clean output by removing all markers
           let cleanOutput = result.output;
-          const startMarker = '__WORLD_STATE__';
-          const endMarker = '__END_WORLD_STATE__';
-          const startIndex = cleanOutput.indexOf(startMarker);
-          const endIndex = cleanOutput.indexOf(endMarker);
+
+          // Remove physics world state markers
+          const worldStartMarker = '__WORLD_STATE__';
+          const worldEndMarker = '__END_WORLD_STATE__';
+          let startIndex = cleanOutput.indexOf(worldStartMarker);
+          let endIndex = cleanOutput.indexOf(worldEndMarker);
 
           if (startIndex !== -1 && endIndex !== -1) {
             cleanOutput = cleanOutput.substring(0, startIndex) +
-                         cleanOutput.substring(endIndex + endMarker.length);
+                         cleanOutput.substring(endIndex + worldEndMarker.length);
+          }
+
+          // Remove math canvas state markers
+          const mathStartMarker = '__MATH_CANVAS_STATE__';
+          const mathEndMarker = '__END_MATH_CANVAS_STATE__';
+          startIndex = cleanOutput.indexOf(mathStartMarker);
+          endIndex = cleanOutput.indexOf(mathEndMarker);
+
+          if (startIndex !== -1 && endIndex !== -1) {
+            cleanOutput = cleanOutput.substring(0, startIndex) +
+                         cleanOutput.substring(endIndex + mathEndMarker.length);
           }
 
           if (cleanOutput.trim()) {
@@ -135,7 +178,7 @@ export function usePython() {
         setIsRunning(false);
       }
     },
-    [isPyodideReady, initialize, setIsRunning, clearConsoleOutput, addConsoleOutput, setPythonWorldState]
+    [isPyodideReady, initialize, setIsRunning, clearConsoleOutput, addConsoleOutput, setPythonWorldState, setMathCanvasState]
   );
 
   return {

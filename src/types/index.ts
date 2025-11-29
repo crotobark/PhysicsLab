@@ -109,6 +109,41 @@ export interface PythonWorldState {
   }>;
 }
 
+export interface MathCanvasState {
+  type: 'MATH_CANVAS';
+  settings: {
+    x_range: [number, number];
+    y_range: [number, number];
+    grid: boolean;
+  };
+  functions: Array<{
+    expression: string;
+    points: Array<[number, number]>;
+    color: string;
+    name: string;
+    style: string;
+  }>;
+  points: Array<{
+    x: number;
+    y: number;
+    label?: string;
+    color: string;
+  }>;
+  lines: Array<{
+    from: [number, number] | { x: number; y: number };
+    to: [number, number] | { x: number; y: number };
+    color: string;
+    style: string;
+  }>;
+  shapes: any[];
+  annotations: Array<{
+    x: number;
+    y: number;
+    text: string;
+    color: string;
+  }>;
+}
+
 export interface PythonExecutionResult {
   success: boolean;
   output: PythonOutput[];

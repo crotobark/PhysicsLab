@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { Mission, WorldState, PythonOutput, PythonWorldState } from '../types';
+import type { Mission, WorldState, PythonOutput, PythonWorldState, MathCanvasState } from '../types';
 
 interface AppState {
   // Mission state
@@ -23,6 +23,10 @@ interface AppState {
   // Python world state (from Python execution)
   pythonWorldState: PythonWorldState | null;
   setPythonWorldState: (state: PythonWorldState | null) => void;
+
+  // Math canvas state (from mathlab library)
+  mathCanvasState: MathCanvasState | null;
+  setMathCanvasState: (state: MathCanvasState | null) => void;
 
   // UI state
   theoryPanelOpen: boolean;
@@ -52,6 +56,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   isPaused: false,
   worldState: null,
   pythonWorldState: null,
+  mathCanvasState: null,
   theoryPanelOpen: false,
   consoleOutput: [],
   showHints: false,
@@ -73,6 +78,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   setIsPaused: (paused) => set({ isPaused: paused }),
   setWorldState: (state) => set({ worldState: state }),
   setPythonWorldState: (state) => set({ pythonWorldState: state }),
+  setMathCanvasState: (state) => set({ mathCanvasState: state }),
   setTheoryPanelOpen: (open) => set({ theoryPanelOpen: open }),
 
   // Console
@@ -101,6 +107,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       isPaused: false,
       worldState: null,
       pythonWorldState: null,
+      mathCanvasState: null,
       consoleOutput: [],
       currentHintLevel: 0,
       showHints: false,
