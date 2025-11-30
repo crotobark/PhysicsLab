@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { fadeIn, slideUp, scaleIn, staggerContainer } from '../../lib/animations';
+import { fadeIn, slideUp, scaleIn, staggerContainer } from '../lib/animations';
 import { Link } from 'react-router-dom';
 
 export default function HomePage() {
