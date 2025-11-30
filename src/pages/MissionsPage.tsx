@@ -68,7 +68,7 @@ export default function MissionsPage() {
     };
 
     const renderSkillTree = (nodes: MissionNode[], moduleNum: number) => (
-        <div className="relative w-full h-[600px] bg-[#0d1117] rounded-xl border border-[#30363d] overflow-hidden">
+        <div className="relative w-full min-h-[600px] bg-[#0d1117] rounded-xl border border-[#30363d] overflow-auto">
             {/* SVG for connections */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none">
                 {nodes.map((node) =>
@@ -144,8 +144,8 @@ export default function MissionsPage() {
                                                 <span
                                                     key={star}
                                                     className={`text-xs ${star <= progress.score
-                                                            ? 'text-yellow-400'
-                                                            : 'text-gray-700'
+                                                        ? 'text-yellow-400'
+                                                        : 'text-gray-700'
                                                         }`}
                                                 >
                                                     ⭐

@@ -114,7 +114,7 @@ export default function LabPage() {
     }
 
     return (
-        <div className="h-screen w-screen flex flex-col overflow-hidden bg-[#0d1117]">
+        <div className="h-screen w-screen flex flex-col bg-[#0d1117]">
             {/* Header */}
             <header className="h-14 border-b border-gray-700 bg-[#161b22] flex items-center px-4 gap-4">
                 <button
@@ -142,7 +142,7 @@ export default function LabPage() {
             </header>
 
             {/* Main Content */}
-            <div className="flex-1 flex overflow-hidden">
+            <div className="flex-1 flex">
                 {/* Theory Panel */}
                 {theoryPanelOpen && (
                     <div className="w-80 border-r border-gray-700 overflow-y-auto bg-[#161b22] p-6">
