@@ -38,7 +38,15 @@ export default function LabPage() {
     const isMathMission = currentMission?.module === 5 || currentMission?.module === 6;
 
     const handleRun = async () => {
-        await runCode(code);
+        console.log('Run button clicked');
+        alert('Run button clicked'); // Debugging
+        try {
+            await runCode(code);
+        } catch (e) {
+            console.error('Error in handleRun:', e);
+            alert('Error in handleRun: ' + e);
+        }
+
         // Auto-validate after execution
         if (currentMission) {
             setTimeout(() => validateMission(), 500);
@@ -165,7 +173,7 @@ export default function LabPage() {
                         <Tooltip content="Запустить код Python и увидеть результат" position="top">
                             <button
                                 onClick={handleRun}
-                                disabled={isRunning || !isPyodideReady}
+                                disabled={isRunning}
                                 className="px-6 py-2 bg-[#238636] hover:bg-[#2ea043] text-white rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {isRunning ? '⏳ Выполняется...' : '▶ Запустить'}
