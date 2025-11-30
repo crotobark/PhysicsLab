@@ -1,179 +1,39 @@
-import { useEffect, Suspense, lazy } from 'react';
-import Header from './components/layout/Header';
-import OutputConsole from './components/editor/OutputConsole';
-import SimulationCanvas from './components/simulation/SimulationCanvas';
-import MathCanvas from './components/math/MathCanvas';
-import TheoryPanel from './components/theory/TheoryPanel';
-import InteractivePanel from './components/missions/InteractivePanel';
+import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAppStore } from './store/useAppStore';
-import { usePython } from './hooks/usePython';
-import { useDebouncedEffect } from './hooks/useDebouncedEffect';
-import { getInteractiveConfig } from './config/interactiveConfigs';
-import mission5_1_1 from './content/missions/mission5_1_1';
-
-// Lazy load Monaco Editor
-const CodeEditor = lazy(() => import('./components/editor/CodeEditor'));
+import HomePage from './pages/HomePage';
+import MissionsPage from './pages/MissionsPage';
+import LabPage from './pages/LabPage';
 
 function App() {
-  const setCurrentMission = useAppStore((state) => state.setCurrentMission);
-  const resetMission = useAppStore((state) => state.resetMission);
-  const setCode = useAppStore((state) => state.setCode);
-  const currentMission = useAppStore((state) => state.currentMission);
-  const code = useAppStore((state) => state.code);
-  const isRunning = useAppStore((state) => state.isRunning);
-  const mathCanvasState = useAppStore((state) => state.mathCanvasState);
-  const theoryPanelOpen = useAppStore((state) => state.theoryPanelOpen);
-  const parameters = useAppStore((state) => state.parameters);
-  const setParameter = useAppStore((state) => state.setParameter);
   const setParameters = useAppStore((state) => state.setParameters);
-
-  const { runCode, isLoading, isPyodideReady } = usePython();
-
-  // Determine if current mission is math-based
-  const isMathMission = currentMission?.module === 5 || currentMission?.module === 6;
-
-  useEffect(() => {
-    setCurrentMission(mission5_1_1);
-  }, [setCurrentMission]);
-
-  const handleRun = async () => {
-    await runCode(code);
-  };
-
-  const handleReset = () => {
-    resetMission();
-    // Reset parameters to defaults if interactive mission
-    if (currentMission) {
-      const config = getInteractiveConfig(currentMission.id);
-      if (config) {
-        const defaults: Record<string, number> = {};
-        config.parameters.forEach((p) => {
-          defaults[p.name] = p.defaultValue;
-        });
-        setParameters(defaults);
-      }
-    }
-  };
 
   // Initialize parameters when mission changes
   useEffect(() => {
+    const currentMission = useAppStore.getState().currentMission;
     if (currentMission) {
-      const config = getInteractiveConfig(currentMission.id);
-      if (config) {
-        const defaults: Record<string, number> = {};
-        config.parameters.forEach((p) => {
-          defaults[p.name] = p.defaultValue;
-        });
-        setParameters(defaults);
-      }
-    }
-  }, [currentMission, setParameters]);
-
-  // Update code when parameters change (debounced)
-  useDebouncedEffect(
-    () => {
-      if (currentMission) {
+      import('./config/interactiveConfigs').then(({ getInteractiveConfig }) => {
         const config = getInteractiveConfig(currentMission.id);
         if (config) {
-          const newCode = config.codeTemplate(parameters);
-          setCode(newCode);
+          const defaults: Record<string, number> = {};
+          config.parameters.forEach((p) => {
+            defaults[p.name] = p.defaultValue;
+          });
+          setParameters(defaults);
         }
-      }
-    },
-    [parameters, currentMission],
-    150 // 150ms debounce
-  );
-
-  // Get interactive config for current mission
-  const interactiveConfig = currentMission ? getInteractiveConfig(currentMission.id) : null;
-  const interactiveParams = interactiveConfig
-    ? interactiveConfig.parameters.map((p) => ({
-      ...p,
-      value: parameters[p.name] ?? p.defaultValue,
-    }))
-    : [];
+      });
+    }
+  }, [setParameters]);
 
   return (
-    <div className="h-screen w-screen flex flex-col overflow-hidden bg-[#0d1117]">
-      <Header />
-
-      {/* Main Content */}
-      <div className="flex-1 flex overflow-hidden">
-        {/* Theory Panel - Collapsible Side Panel */}
-        {theoryPanelOpen && (
-          <div className="w-80 border-r border-gray-700 overflow-y-auto bg-[#161b22] p-6">
-            <TheoryPanel />
-          </div>
-        )}
-
-        {/* Visualization - Switch between Physics and Math */}
-        <div className="flex-1 border-r border-gray-700">
-          {isMathMission || mathCanvasState ? (
-            <MathCanvas />
-          ) : (
-            <SimulationCanvas />
-          )}
-        </div>
-
-        {/* Code Area */}
-        <div className="w-1/2 flex flex-col">
-          {/* Controls */}
-          <div className="h-14 border-b border-gray-700 px-4 flex items-center gap-3 bg-[#161b22]">
-            <button
-              onClick={handleRun}
-              disabled={isRunning || isLoading}
-              className="px-4 py-2 rounded text-sm bg-blue-600 hover:bg-blue-700 text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isRunning ? '⏳ Выполняется...' : '▶ Запустить'}
-            </button>
-            <button
-              onClick={handleReset}
-              disabled={isRunning}
-              className="px-4 py-2 rounded text-sm bg-gray-700 hover:bg-gray-600 text-white transition-colors disabled:opacity-50"
-            >
-              🔄 Сброс
-            </button>
-            <span className="text-sm text-gray-400 ml-4">
-              {isLoading
-                ? 'Загрузка Python...'
-                : isPyodideReady
-                  ? '✓ Python готов'
-                  : 'Готов к запуску'}
-            </span>
-          </div>
-
-          {/* Interactive Parameters Panel */}
-          {interactiveParams.length > 0 && (
-            <div className="border-b border-gray-700 p-3 bg-[#0d1117]">
-              <InteractivePanel
-                parameters={interactiveParams}
-                onParameterChange={setParameter}
-                collapsible={true}
-              />
-            </div>
-          )}
-
-          {/* Monaco Editor */}
-          <div className="flex-1">
-            <Suspense
-              fallback={
-                <div className="h-full flex items-center justify-center bg-[#1e1e1e] text-gray-400">
-                  <div className="text-center">
-                    <div className="mb-2">⏳</div>
-                    <div>Загрузка редактора...</div>
-                  </div>
-                </div>
-              }
-            >
-              <CodeEditor />
-            </Suspense>
-          </div>
-
-          {/* Console Output */}
-          <OutputConsole />
-        </div>
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/missions" element={<MissionsPage />} />
+        <Route path="/lab" element={<LabPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
