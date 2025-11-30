@@ -1,206 +1,283 @@
+import { motion } from 'framer-motion';
+import { fadeIn, slideUp, scaleIn, staggerContainer } from '../../lib/animations';
 import { Link } from 'react-router-dom';
 
 export default function HomePage() {
     return (
-        <div className="min-h-screen w-full bg-gradient-to-br from-[#0d1117] via-[#161b22] to-[#0d1117] overflow-auto">
+        <motion.div
+            className="min-h-screen w-full bg-gradient-to-br from-[#0d1117] via-[#161b22] to-[#0d1117] overflow-auto"
+            {...fadeIn}
+            transition={{ duration: 0.5 }}
+        >
             {/* Hero Section */}
             <div className="container mx-auto px-4 py-16">
                 {/* Header */}
-                <header className="text-center mb-16 animate-fade-in">
+                <motion.header
+                    className="text-center mb-16"
+                    {...slideUp}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                >
                     <div className="inline-block mb-6">
                         <div className="flex items-center gap-4 text-6xl">
-                            <span className="animate-bounce">🚀</span>
+                            <motion.span
+                                animate={{ y: [0, -10, 0] }}
+                                transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+                            >
+                                🚀
+                            </motion.span>
                             <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-[#58a6ff] via-[#7ee787] to-[#d2a8ff] bg-clip-text text-transparent">
                                 PhysicsCodeLab
                             </h1>
-                            <span className="animate-bounce delay-150">⚛️</span>
+                            <motion.span
+                                animate={{ y: [0, -10, 0] }}
+                                transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut', delay: 0.3 }}
+                            >
+                                ⚛️
+                            </motion.span>
                         </div>
                     </div>
 
-                    <p className="text-xl md:text-2xl text-[#8b949e] max-w-3xl mx-auto mb-8">
+                    <motion.p
+                        className="text-xl md:text-2xl text-[#8b949e] max-w-3xl mx-auto mb-8"
+                        {...slideUp}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                    >
                         Интерактивная платформа для изучения <span className="text-[#58a6ff] font-semibold">Python</span>,
                         <span className="text-[#7ee787] font-semibold"> математики</span> и
                         <span className="text-[#d2a8ff] font-semibold"> физики</span>
-                    </p>
+                    </motion.p>
 
-                    <div className="flex flex-wrap gap-4 justify-center mb-12">
-                        <div className="bg-[#161b22] border border-[#30363d] rounded-lg px-6 py-3">
-                            <div className="text-3xl font-bold text-[#58a6ff]">7</div>
-                            <div className="text-sm text-[#8b949e]">Миссий</div>
-                        </div>
-                        <div className="bg-[#161b22] border border-[#30363d] rounded-lg px-6 py-3">
-                            <div className="text-3xl font-bold text-[#7ee787]">2</div>
-                            <div className="text-sm text-[#8b949e]">Модуля</div>
-                        </div>
-                        <div className="bg-[#161b22] border border-[#30363d] rounded-lg px-6 py-3">
-                            <div className="text-3xl font-bold text-[#d2a8ff]">∞</div>
-                            <div className="text-sm text-[#8b949e]">Возможностей</div>
-                        </div>
-                    </div>
-
-                    <Link
-                        to="/missions"
-                        className="inline-block px-8 py-4 bg-gradient-to-r from-[#238636] to-[#2ea043] hover:from-[#2ea043] hover:to-[#238636] text-white text-lg font-semibold rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+                    <motion.div
+                        className="flex flex-wrap gap-4 justify-center mb-12"
+                        {...staggerContainer}
                     >
-                        🎯 Начать обучение
-                    </Link>
-                </header>
+                        {[
+                            { value: '7', label: 'Миссий', color: '#58a6ff' },
+                            { value: '2', label: 'Модуля', color: '#7ee787' },
+                            { value: '∞', label: 'Возможностей', color: '#d2a8ff' },
+                        ].map((stat, index) => (
+                            <motion.div
+                                key={stat.label}
+                                className="bg-[#161b22] border border-[#30363d] rounded-lg px-6 py-3"
+                                {...scaleIn}
+                                transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                                whileHover={{ scale: 1.05, borderColor: stat.color }}
+                            >
+                                <div className="text-3xl font-bold" style={{ color: stat.color }}>
+                                    {stat.value}
+                                </div>
+                                <div className="text-sm text-[#8b949e]">{stat.label}</div>
+                            </motion.div>
+                        ))}
+                    </motion.div>
+
+                    <motion.div
+                        {...scaleIn}
+                        transition={{ duration: 0.6, delay: 0.6 }}
+                    >
+                        <Link
+                            to="/missions"
+                            className="inline-block px-8 py-4 bg-gradient-to-r from-[#238636] to-[#2ea043] hover:from-[#2ea043] hover:to-[#238636] text-white text-lg font-semibold rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+                        >
+                            🎯 Начать обучение
+                        </Link>
+                    </motion.div>
+                </motion.header>
 
                 {/* Modules Grid */}
-                <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <motion.div
+                    className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto"
+                    {...staggerContainer}
+                >
                     {/* Module 1: Physics */}
-                    <Link to="/missions?module=1" className="group">
-                        <div className="bg-[#161b22] border-2 border-[#30363d] rounded-xl p-8 hover:border-[#58a6ff] transition-all transform hover:scale-105 hover:shadow-2xl">
-                            <div className="flex items-center gap-4 mb-4">
-                                <div className="text-5xl">⚛️</div>
-                                <div>
-                                    <h2 className="text-2xl font-bold text-[#c9d1d9] group-hover:text-[#58a6ff] transition-colors">
-                                        Модуль 1: Физика
-                                    </h2>
-                                    <p className="text-[#8b949e]">Механика и движение</p>
+                    <motion.div
+                        {...scaleIn}
+                        transition={{ duration: 0.5, delay: 0.7 }}
+                        whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+                    >
+                        <Link to="/missions?module=1" className="group block">
+                            <div className="bg-[#161b22] border-2 border-[#30363d] rounded-xl p-8 hover:border-[#58a6ff] transition-all hover:shadow-2xl">
+                                <div className="flex items-center gap-4 mb-4">
+                                    <div className="text-5xl">⚛️</div>
+                                    <div>
+                                        <h2 className="text-2xl font-bold text-[#c9d1d9] group-hover:text-[#58a6ff] transition-colors">
+                                            Модуль 1: Физика
+                                        </h2>
+                                        <p className="text-[#8b949e]">Механика и движение</p>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="space-y-2 mb-6">
-                                <div className="flex items-center gap-2 text-[#8b949e]">
-                                    <span className="text-[#7ee787]">✓</span>
-                                    <span>Ball physics simulation</span>
+                                <div className="space-y-2 mb-6">
+                                    <div className="flex items-center gap-2 text-[#8b949e]">
+                                        <span className="text-[#7ee787]">✓</span>
+                                        <span>Ball physics simulation</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-[#8b949e]">
+                                        <span className="text-[#7ee787]">✓</span>
+                                        <span>Gravity & collisions</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-[#8b949e]">
+                                        <span className="text-[#7ee787]">✓</span>
+                                        <span>Platform interactions</span>
+                                    </div>
                                 </div>
-                                <div className="flex items-center gap-2 text-[#8b949e]">
-                                    <span className="text-[#7ee787]">✓</span>
-                                    <span>Gravity \u0026 collisions</span>
-                                </div>
-                                <div className="flex items-center gap-2 text-[#8b949e]">
-                                    <span className="text-[#7ee787]">✓</span>
-                                    <span>Platform interactions</span>
-                                </div>
-                            </div>
 
-                            <div className="flex items-center justify-between">
-                                <div className="text-sm text-[#8b949e]">
-                                    <span className="text-[#58a6ff] font-semibold">1</span> / 1 миссий
-                                </div>
-                                <div className="text-[#58a6ff] group-hover:translate-x-2 transition-transform">
-                                    →
+                                <div className="flex items-center justify-between">
+                                    <div className="text-sm text-[#8b949e]">
+                                        <span className="text-[#58a6ff] font-semibold">1</span> / 1 миссий
+                                    </div>
+                                    <motion.div
+                                        className="text-[#58a6ff]"
+                                        animate={{ x: [0, 5, 0] }}
+                                        transition={{ repeat: Infinity, duration: 1.5 }}
+                                    >
+                                        →
+                                    </motion.div>
                                 </div>
                             </div>
-                        </div>
-                    </Link>
+                        </Link>
+                    </motion.div>
 
                     {/* Module 5: Algebra */}
-                    <Link to="/missions?module=5" className="group">
-                        <div className="bg-[#161b22] border-2 border-[#30363d] rounded-xl p-8 hover:border-[#7ee787] transition-all transform hover:scale-105 hover:shadow-2xl">
-                            <div className="flex items-center gap-4 mb-4">
-                                <div className="text-5xl">📊</div>
-                                <div>
-                                    <h2 className="text-2xl font-bold text-[#c9d1d9] group-hover:text-[#7ee787] transition-colors">
-                                        Модуль 5: Алгебра
-                                    </h2>
-                                    <p className="text-[#8b949e]">Функции и графики</p>
+                    <motion.div
+                        {...scaleIn}
+                        transition={{ duration: 0.5, delay: 0.8 }}
+                        whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+                    >
+                        <Link to="/missions?module=5" className="group block">
+                            <div className="bg-[#161b22] border-2 border-[#30363d] rounded-xl p-8 hover:border-[#7ee787] transition-all hover:shadow-2xl">
+                                <div className="flex items-center gap-4 mb-4">
+                                    <div className="text-5xl">📊</div>
+                                    <div>
+                                        <h2 className="text-2xl font-bold text-[#c9d1d9] group-hover:text-[#7ee787] transition-colors">
+                                            Модуль 5: Алгебра
+                                        </h2>
+                                        <p className="text-[#8b949e]">Функции и графики</p>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="space-y-2 mb-6">
-                                <div className="flex items-center gap-2 text-[#8b949e]">
-                                    <span className="text-[#7ee787]">✓</span>
-                                    <span>6 типов функций</span>
+                                <div className="space-y-2 mb-6">
+                                    <div className="flex items-center gap-2 text-[#8b949e]">
+                                        <span className="text-[#7ee787]">✓</span>
+                                        <span>6 типов функций</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-[#8b949e]">
+                                        <span className="text-[#7ee787]">✓</span>
+                                        <span>Интерактивные слайдеры 🎛️</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-[#8b949e]">
+                                        <span className="text-[#7ee787]">✓</span>
+                                        <span>Реал-тайм визуализация</span>
+                                    </div>
                                 </div>
-                                <div className="flex items-center gap-2 text-[#8b949e]">
-                                    <span className="text-[#7ee787]">✓</span>
-                                    <span>Интерактивные слайдеры 🎛️</span>
-                                </div>
-                                <div className="flex items-center gap-2 text-[#8b949e]">
-                                    <span className="text-[#7ee787]">✓</span>
-                                    <span>Реал-тайм визуализация</span>
-                                </div>
-                            </div>
 
-                            <div className="flex items-center justify-between">
-                                <div className="text-sm text-[#8b949e]">
-                                    <span className="text-[#7ee787] font-semibold">6</span> / 6 миссий ✨
-                                </div>
-                                <div className="text-[#7ee787] group-hover:translate-x-2 transition-transform">
-                                    →
+                                <div className="flex items-center justify-between">
+                                    <div className="text-sm text-[#8b949e]">
+                                        <span className="text-[#7ee787] font-semibold">6</span> / 6 миссий ✨
+                                    </div>
+                                    <motion.div
+                                        className="text-[#7ee787]"
+                                        animate={{ x: [0, 5, 0] }}
+                                        transition={{ repeat: Infinity, duration: 1.5, delay: 0.2 }}
+                                    >
+                                        →
+                                    </motion.div>
                                 </div>
                             </div>
-                        </div>
-                    </Link>
-                </div>
+                        </Link>
+                    </motion.div>
+                </motion.div>
 
                 {/* Features Section */}
-                <div className="mt-20 max-w-5xl mx-auto">
+                <motion.div
+                    className="mt-20 max-w-5xl mx-auto"
+                    {...fadeIn}
+                    transition={{ duration: 0.6, delay: 1.0 }}
+                >
                     <h3 className="text-3xl font-bold text-center text-[#c9d1d9] mb-12">
                         ✨ Особенности платформы
                     </h3>
 
-                    <div className="grid md:grid-cols-3 gap-6">
-                        <div className="bg-[#161b22] border border-[#30363d] rounded-lg p-6 text-center hover:border-[#58a6ff] transition-colors">
-                            <div className="text-4xl mb-4">🐍</div>
-                            <h4 className="text-lg font-semibold text-[#c9d1d9] mb-2">Python в браузере</h4>
-                            <p className="text-sm text-[#8b949e]">Pyodide — полноценный Python прямо в браузере, без установки</p>
-                        </div>
-
-                        <div className="bg-[#161b22] border border-[#30363d] rounded-lg p-6 text-center hover:border-[#7ee787] transition-colors">
-                            <div className="text-4xl mb-4">🎨</div>
-                            <h4 className="text-lg font-semibold text-[#c9d1d9] mb-2">Визуализация</h4>
-                            <p className="text-sm text-[#8b949e]">Графики, анимации и Canvas для наглядного обучения</p>
-                        </div>
-
-                        <div className="bg-[#161b22] border border-[#30363d] rounded-lg p-6 text-center hover:border-[#d2a8ff] transition-colors">
-                            <div className="text-4xl mb-4">🎯</div>
-                            <h4 className="text-lg font-semibold text-[#c9d1d9] mb-2">Интерактивность</h4>
-                            <p className="text-sm text-[#8b949e]">Слайдеры, параметры и мгновенная обратная связь</p>
-                        </div>
-                    </div>
-                </div>
+                    <motion.div
+                        className="grid md:grid-cols-3 gap-6"
+                        {...staggerContainer}
+                    >
+                        {[
+                            { icon: '🐍', title: 'Python в браузере', description: 'Pyodide — полноценный Python прямо в браузере, без установки', hoverColor: '#58a6ff' },
+                            { icon: '🎨', title: 'Визуализация', description: 'Графики, анимации и Canvas для наглядного обучения', hoverColor: '#7ee787' },
+                            { icon: '🎯', title: 'Интерактивность', description: 'Слайдеры, параметры и мгновенная обратная связь', hoverColor: '#d2a8ff' },
+                        ].map((feature, index) => (
+                            <motion.div
+                                key={feature.title}
+                                className="bg-[#161b22] border border-[#30363d] rounded-lg p-6 text-center transition-all"
+                                {...scaleIn}
+                                transition={{ duration: 0.5, delay: 1.1 + index * 0.1 }}
+                                whileHover={{
+                                    scale: 1.05,
+                                    borderColor: feature.hoverColor,
+                                    transition: { duration: 0.2 }
+                                }}
+                            >
+                                <div className="text-4xl mb-4">{feature.icon}</div>
+                                <h4 className="text-lg font-semibold text-[#c9d1d9] mb-2">{feature.title}</h4>
+                                <p className="text-sm text-[#8b949e]">{feature.description}</p>
+                            </motion.div>
+                        ))}
+                    </motion.div>
+                </motion.div>
 
                 {/* Footer */}
-                <footer className="mt-20 text-center text-[#6e7681]">
+                <motion.footer
+                    className="mt-20 text-center text-[#6e7681]"
+                    {...fadeIn}
+                    transition={{ duration: 0.6, delay: 1.4 }}
+                >
                     <p className="mb-2">Made with ❤️ for learners</p>
                     <p className="text-sm">Inspired by Alan Becker's "Animation vs Math"</p>
-                </footer>
+                </motion.footer>
             </div>
 
             {/* Background decorations */}
             <div className="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden -z-10">
-                <div className="absolute top-20 left-10 w-64 h-64 bg-[#58a6ff] rounded-full opacity-5 blur-3xl"></div>
-                <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#7ee787] rounded-full opacity-5 blur-3xl"></div>
-                <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-[#d2a8ff] rounded-full opacity-5 blur-3xl"></div>
+                <motion.div
+                    className="absolute top-20 left-10 w-64 h-64 bg-[#58a6ff] rounded-full opacity-5 blur-3xl"
+                    animate={{
+                        scale: [1, 1.2, 1],
+                        opacity: [0.05, 0.08, 0.05],
+                    }}
+                    transition={{
+                        repeat: Infinity,
+                        duration: 4,
+                        ease: 'easeInOut',
+                    }}
+                />
+                <motion.div
+                    className="absolute bottom-20 right-10 w-96 h-96 bg-[#7ee787] rounded-full opacity-5 blur-3xl"
+                    animate={{
+                        scale: [1, 1.3, 1],
+                        opacity: [0.05, 0.08, 0.05],
+                    }}
+                    transition={{
+                        repeat: Infinity,
+                        duration: 5,
+                        ease: 'easeInOut',
+                        delay: 1,
+                    }}
+                />
+                <motion.div
+                    className="absolute top-1/2 left-1/2 w-80 h-80 bg-[#d2a8ff] rounded-full opacity-5 blur-3xl"
+                    animate={{
+                        scale: [1, 1.25, 1],
+                        opacity: [0.05, 0.08, 0.05],
+                    }}
+                    transition={{
+                        repeat: Infinity,
+                        duration: 4.5,
+                        ease: 'easeInOut',
+                        delay: 2,
+                    }}
+                />
             </div>
-
-            <style>{`
-        @keyframes fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(-20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .animate-fade-in {
-          animation: fade-in 0.8s ease-out;
-        }
-
-        @keyframes bounce {
-          0%, 100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-        }
-
-        .animate-bounce {
-          animation: bounce 2s ease-in-out infinite;
-        }
-
-        .delay-150 {
-          animation-delay: 0.15s;
-        }
-      `}</style>
-        </div>
+        </motion.div>
     );
 }
