@@ -39,12 +39,10 @@ export default function LabPage() {
 
     const handleRun = async () => {
         console.log('Run button clicked');
-        alert('Run button clicked'); // Debugging
         try {
             await runCode(code);
         } catch (e) {
             console.error('Error in handleRun:', e);
-            alert('Error in handleRun: ' + e);
         }
 
         // Auto-validate after execution
