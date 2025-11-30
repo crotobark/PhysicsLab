@@ -2,17 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-/* PhysicsCodeLab Custom Theme */
+/* PhysicsCodeLab Theme System */
 :root {
-  /* Colors based on project design */
-  --color-bg-primary: #0d1117;
-  --color-bg-secondary: #161b22;
-  --color-accent-blue: #58a6ff;
-  --color-accent-green: #7ee787;
-  --color-accent-orange: #ffa657;
-  --color-error: #f85149;
-  --color-text-primary: #c9d1d9;
-  --color-text-secondary: #8b949e;
+  /* Default values (will be overridden by ThemeProvider) */
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --bg-tertiary: #21262d;
+  --bg-hover: #30363d;
+
+  --text-primary: #c9d1d9;
+  --text-secondary: #8b949e;
+  --text-muted: #6e7681;
+
+  --accent-blue: #58a6ff;
+  --accent-green: #7ee787;
+  --accent-orange: #ffa657;
+  --accent-purple: #d2a8ff;
+  --accent-red: #f85149;
+
+  --border-primary: #30363d;
+  --border-secondary: #21262d;
+
+  --btn-primary-bg: #238636;
+  --btn-primary-hover: #2ea043;
+  --btn-secondary-bg: #21262d;
+  --btn-secondary-hover: #30363d;
+
+  --success-green: #238636;
+  --error-red: #f85149;
+  --warning-orange: #ffa657;
+
+  --overlay-bg: rgba(0, 0, 0, 0.5);
 
   /* Typography */
   --font-display: system-ui, -apple-system, 'Inter', sans-serif;
@@ -23,6 +43,7 @@
 /* Base styles */
 * {
   box-sizing: border-box;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 html {
@@ -42,8 +63,8 @@ body,
 
 body {
   font-family: var(--font-body);
-  background-color: var(--color-bg-primary);
-  color: var(--color-text-primary);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

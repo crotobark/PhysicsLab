@@ -1,6 +1,7 @@
 import { useEffect, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useAppStore } from './store/useAppStore';
+import { ThemeProvider } from './contexts/ThemeContext';
 import LoadingScreen from './components/common/LoadingScreen';
 import HomePage from './pages/HomePage';
 import MissionsPage from './pages/MissionsPage';
@@ -28,16 +29,18 @@ function App() {
   }, [setParameters]);
 
   return (
-    <BrowserRouter>
-      <Suspense fallback={<LoadingScreen />}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/missions" element={<MissionsPage />} />
-          <Route path="/lab" element={<LabPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </Suspense>
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <Suspense fallback={<LoadingScreen />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/missions" element={<MissionsPage />} />
+            <Route path="/lab" element={<LabPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

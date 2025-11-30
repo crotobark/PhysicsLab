@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { fadeIn, slideUp, scaleIn, staggerContainer } from '../lib/animations';
 import { Link } from 'react-router-dom';
+import ThemeToggle from '../components/ui/ThemeToggle';
 
 export default function HomePage() {
     return (
@@ -9,6 +10,11 @@ export default function HomePage() {
             {...fadeIn}
             transition={{ duration: 0.5 }}
         >
+            {/* Theme Toggle - Fixed position */}
+            <div className="fixed top-4 right-4 z-50">
+                <ThemeToggle />
+            </div>
+
             {/* Hero Section */}
             <div className="container mx-auto px-4 py-16">
                 {/* Header */}
